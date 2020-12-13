@@ -16,7 +16,7 @@ ui <- dashboardPage(
   
   # start main body
   dashboardBody(
-    
+    uiOutput('mainBody')
   )
   # end main body
 )

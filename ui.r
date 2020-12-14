@@ -16,6 +16,7 @@ ui <- dashboardPage(
   
   # start main body
   dashboardBody(
+    tags$link(href='style.css', rel='stylesheet'),
     uiOutput('mainBody')
   )
   # end main body

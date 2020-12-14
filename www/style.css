@@ -1,0 +1,12 @@
+.questionDiv{
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid #3c8dbc;
+    background-color: white;
+    margin: 10px 0;
+}
+
+.questionDiv .control-label{
+    font-size: 20px;
+    font-weight: normal;
+}

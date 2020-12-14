@@ -1,6 +1,7 @@
 # loading packages
 library(shiny)
 library(shinydashboard)
+library(shinyWidgets)
 library(readxl)
 library(stringr)
 
@@ -24,17 +25,53 @@ server <- function(input, output, session){
     )
   })
   
+  # function to create a list of divs for each question in a module
+  questionsDivList <- function(moduleName){
+    q <- rawQues[rawQues$Module==moduleName,]
+    qList <- list()
+    for (i in 1:nrow(q)){
+      if(q$Type[i]=='closed'){
+        qList[[i]] <- div(
+          prettyRadioButtons(
+            inputId = paste0(moduleName, i),
+            label = q$Question[i], 
+            choices = strsplit(q$Options[i], split = ',')[[1]],
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "info",
+            animation = "jelly"
+          ),
+          class = 'questionDiv'
+        )
+      }
+      else{
+        qList[[i]] <- div(
+          h4(q$Question[i]),
+          class = 'questionDiv'
+        )
+      }
+    }
+    return(qList)
+  }
+  
   # creating the main body where the questions will be shown
-  output$mainBody <- renderUI(
-    do.call(
-      tabItems,
-      lapply(modules, function(module){
+  output$mainBody <- renderUI({
+    tabItemList <- lapply(
+      modules, function(module){
         tabItem(
           tabName = str_replace_all(module, pattern = ' ', replacement = '_'),
-          h2(module)
+          fluidRow(
+            column(width = 3),
+            column(
+              width = 6,
+              do.call(div, questionsDivList(module))
+            ),
+            column(width = 3)
+          )
         )
-      })
+      }
     )
-  )
+    do.call(tabItems, tabItemList)
+  })
   
 }

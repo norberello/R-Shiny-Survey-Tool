@@ -56,6 +56,16 @@ server <- function(input, output, session){
           class = 'questionDiv numeric'
         )
       }
+      else if(q$Type[i]=='open-char'){
+        qList[[i]] <- div(
+          textInput(
+            inputId = paste0(moduleName, i),
+            label = q$Question[i],
+            value = NA
+          ),
+          class = 'questionDiv numeric'
+        )
+      }
       else{
         qList[[i]] <- div(
           h4(q$Question[i]),

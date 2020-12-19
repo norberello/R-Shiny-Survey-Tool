@@ -4,6 +4,7 @@ library(shinydashboard)
 library(shinyWidgets)
 library(readxl)
 library(stringr)
+library(shinyTime)
 
 server <- function(input, output, session){
   
@@ -53,7 +54,7 @@ server <- function(input, output, session){
             value = NA,
             width = '100%'
           ),
-          class = 'questionDiv numeric'
+          class = 'questionDiv field'
         )
       }
       else if(q$Type[i]=='open-char'){
@@ -63,13 +64,40 @@ server <- function(input, output, session){
             label = q$Question[i],
             value = NA
           ),
-          class = 'questionDiv numeric'
+          class = 'questionDiv field'
         )
       }
-      else{
+      else if(q$Type[i]=='date'){
         qList[[i]] <- div(
-          h4(q$Question[i]),
-          class = 'questionDiv'
+          dateInput(
+            inputId = paste0(moduleName, i),
+            label = q$Question[i],
+            format = 'dd-mm-yyyy',
+            min = strsplit(q$Options[i], split = ',')[[1]][1],
+            max = strsplit(q$Options[i], split = ',')[[1]][2]
+          ),
+          class = 'questionDiv field'
+        )
+      }
+      else if(q$Type[i]=='date-range'){
+        qList[[i]] <- div(
+          dateRangeInput(
+            inputId = paste0(moduleName, i),
+            label = q$Question[i],
+            min = strsplit(q$Options[i], split = ',')[[1]][1],
+            max = strsplit(q$Options[i], split = ',')[[1]][2]
+          ),
+          class = 'questionDiv field'
+        )
+      }
+      else if(q$Type[i]=='time'){
+        qList[[i]] <- div(
+          timeInput(
+            inputId = paste0(moduleName, i),
+            label = q$Question[i],
+            value = Sys.time()
+          ),
+          class = 'questionDiv field'
         )
       }
     }

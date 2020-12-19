@@ -12,12 +12,12 @@
     margin-bottom: 20px
 }
 
-.numeric input{
+.field input{
     width: 300px;
     border-radius: 5px;
     border-color: #94aebf;
 }
-.numeric input:focus{
+.field input:focus{
     width: 300px;
     border-radius: 5px;
     border-color: #3c8dbc;

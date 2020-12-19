@@ -39,9 +39,21 @@ server <- function(input, output, session){
             icon = icon("check"), 
             bigger = TRUE,
             status = "info",
-            animation = "jelly"
+            animation = "jelly",
+            inline = FALSE
           ),
           class = 'questionDiv'
+        )
+      }
+      else if(q$Type[i]=='open-num'){
+        qList[[i]] <- div(
+          numericInput(
+            inputId = paste0(moduleName, i),
+            label = q$Question[i],
+            value = NA,
+            width = '100%'
+          ),
+          class = 'questionDiv numeric'
         )
       }
       else{

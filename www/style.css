@@ -9,4 +9,17 @@
 .questionDiv .control-label{
     font-size: 20px;
     font-weight: normal;
+    margin-bottom: 20px
+}
+
+.numeric input{
+    width: 300px;
+    border-radius: 5px;
+    border-color: #94aebf;
+}
+.numeric input:focus{
+    width: 300px;
+    border-radius: 5px;
+    border-color: #3c8dbc;
+    border-width: 1.5px;
 }

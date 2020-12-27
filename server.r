@@ -51,7 +51,9 @@ server <- function(input, output, session){
           numericInput(
             inputId = paste0(moduleName, i),
             label = q$Question[i],
-            value = NA,
+            min = as.numeric(strsplit(q$Options[i], split = ',')[[1]][1]),
+            max = as.numeric(strsplit(q$Options[i], split = ',')[[1]][2]),
+            value = as.numeric(strsplit(q$Options[i], split = ',')[[1]][3]),
             width = '100%'
           ),
           class = 'questionDiv field'
